@@ -8,7 +8,7 @@ const Header = () => {
                 {/* <Text style={{ color: 'white' }}>Header</Text> */}
                 <Image style={styles.logo} source={require('../../assets/logo.png')} />
             </TouchableOpacity>
-            <View style={styles.iconsConatainer}>
+            <View style={styles.iconsContainer}>
                 <TouchableOpacity>
                     {/* <Text style={{ color: 'white' }}>Header</Text> */}
                     <Image style={styles.icon} source={require('../../assets/iconadd.png')} />
@@ -31,20 +31,19 @@ const Header = () => {
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexdirection: 'row',
-        marginHorizontal: 20,
-    },
-    iconsConatainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        // alignItems: 'center',
-        // width: 100,
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        marginTop: 20,
+    },
+    iconsContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     logo: {
-        width: 100,
-        height: 100,
+        width: 70,
+        height: 70,
         resizeMode: 'contain',
     },
     icon: {
@@ -60,7 +59,8 @@ const styles = StyleSheet.create({
         bottom: 18,
         width: 25,
         height: 18,
-        borderRadius: 25
+        borderRadius: 25,
+        zIndex: 1,
     },
     unreadBadgeText: {
         color: 'white',
@@ -68,5 +68,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 });
+
 
 export default Header;
