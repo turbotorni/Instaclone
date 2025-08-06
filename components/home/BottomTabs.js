@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, TouchableOpacity, Image, StyleSheet } from 'react-native'
+import { View, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native'
 import { Divider } from 'react-native-elements'
 
 export const bottomTabIcons = [
@@ -25,7 +25,10 @@ export const bottomTabIcons = [
     },
 ]
 
-const BottomTabs = () => {
+const { width } = Dimensions.get('window');
+
+
+const BottomTabs = (icons) => {
     const [activeTab, setActiveTab] = useState('Home')
 
     const Icon = ({ icon }) => (
@@ -34,12 +37,8 @@ const BottomTabs = () => {
                 source={{ uri: activeTab === icon.name ? icon.active : icon.inactive }}
                 style={[
                     styles.icon,
-                    icon.name === 'Profile' && {
-                        borderRadius: 50,
-                        borderWidth: activeTab === 'Profile' ? 2 : 0,
-                        borderColor: '#fff',
-                        backgroundColor: '#000',
-                    },
+                    icon.name === 'Profile' ? styles.profilePic : null,
+                    activeTab === 'Profile' && icon.name === activeTab ? styles.profilePic(activeTab) : null,
                 ]}
             />
         </TouchableOpacity>
@@ -47,7 +46,7 @@ const BottomTabs = () => {
 
     return (
         <View style={styles.wrapper}>
-            <Divider width={1} orientation="horizontal" color="#333" style={{ width: '100%' }} />
+            <Divider width={1} orientation="vertical" color="#333" style={{ width: '100%' }} />
             <View style={styles.container}>
                 {bottomTabIcons.map((icon, index) => (
                     <Icon key={index} icon={icon} />
@@ -61,6 +60,7 @@ const BottomTabs = () => {
 const styles = StyleSheet.create({
     wrapper: {
         position: 'absolute',
+        flexDirection: 'row',
         width: '100%',
         bottom: 0,
         backgroundColor: '#000',
@@ -68,19 +68,28 @@ const styles = StyleSheet.create({
     },
     container: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
         alignItems: 'center',
         height: 60,
         paddingTop: 10,
         width: '100%',
     },
     iconContainer: {
-        padding: 8,
+        padding: 40,
+        padding: width * 0.1, // 10% der Bildschirmbreite
+        alignItems: 'center',
+        justifyContent: 'space-around',
     },
     icon: {
         width: 30,
         height: 30,
     },
+    profilePic: (active = '') => ({
+        width: 30,
+        height: 30,
+        borderRadius: 50,
+        borderWidth: active === 'Profile' ? 2 : 0,
+        borderColor: '#fff',
+    }),
 })
 
 export default BottomTabs
